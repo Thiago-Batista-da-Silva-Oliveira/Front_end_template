@@ -14,11 +14,13 @@ import Loader from 'components/Loader';
 import Breadcrumbs from 'components/@extended/Breadcrumbs';
 
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
+import { useSettingsStore } from '../../zustand/settings';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
 export default function DashboardLayout() {
   const { menuMasterLoading } = useGetMenuMaster();
+  const { drawerDirection } = useSettingsStore();
   const downXL = useMediaQuery((theme) => theme.breakpoints.down('xl'));
 
   useEffect(() => {
@@ -31,12 +33,13 @@ export default function DashboardLayout() {
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>
       <Header />
-      <Drawer />
-      <Box component="main" sx={{ width: 'calc(100% - 260px)', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
+      {drawerDirection === 'left' ? <Drawer /> : null}
+      <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
         <Toolbar />
         <Breadcrumbs navigation={navigation} title />
         <Outlet />
       </Box>
+      {drawerDirection === 'right' ? <Drawer /> : null}
     </Box>
   );
 }

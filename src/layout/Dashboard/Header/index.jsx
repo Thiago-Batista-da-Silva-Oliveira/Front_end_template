@@ -22,7 +22,7 @@ export default function Header() {
   const theme = useTheme();
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
 
-  const { drawerMode, toggleDrawerMode } = useSettingsStore();
+  const { drawerMode, toggleDrawerMode, drawerDirection } = useSettingsStore();
 
   const drawerOpen = drawerMode === 'default';
 
@@ -35,18 +35,37 @@ export default function Header() {
   // common header
   const mainHeader = (
     <Toolbar>
-      <IconButton
-        disableRipple
-        aria-label="open drawer"
-        onClick={() => toggleDrawerMode()}
-        edge="start"
-        color="secondary"
-        variant="light"
-        sx={{ color: 'text.primary', bgcolor: drawerOpen ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: -2 } }}
-      >
-        {!drawerOpen ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </IconButton>
-      {headerContent}
+      {drawerDirection === 'left' ? (
+        <>
+          <IconButton
+            disableRipple
+            aria-label="open drawer"
+            onClick={() => toggleDrawerMode()}
+            edge="start"
+            color="secondary"
+            variant="light"
+            sx={{ color: 'text.primary', bgcolor: drawerOpen ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: -2 } }}
+          >
+            {!drawerOpen ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </IconButton>
+          {headerContent}
+        </>
+      ) : (
+        <>
+          {headerContent}
+          <IconButton
+            disableRipple
+            aria-label="open drawer"
+            onClick={() => toggleDrawerMode()}
+            edge="start"
+            color="secondary"
+            variant="light"
+            sx={{ color: 'text.primary', bgcolor: drawerOpen ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: 2 } }}
+          >
+            {!drawerOpen ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </IconButton>
+        </>
+      )}
     </Toolbar>
   );
 
@@ -64,7 +83,7 @@ export default function Header() {
   return (
     <>
       {!downLG ? (
-        <AppBarStyled open={!!drawerOpen} {...appBar}>
+        <AppBarStyled drawerDirection={drawerDirection} open={!!drawerOpen} {...appBar}>
           {mainHeader}
         </AppBarStyled>
       ) : (

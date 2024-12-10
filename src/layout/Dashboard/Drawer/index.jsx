@@ -17,7 +17,7 @@ import { useSettingsStore } from '../../../zustand/settings';
 
 export default function MainDrawer({ window }) {
   const matchDownMD = useMediaQuery((theme) => theme.breakpoints.down('lg'));
-  const { drawerMode, toggleDrawerMode } = useSettingsStore();
+  const { drawerMode, toggleDrawerMode, drawerDirection } = useSettingsStore();
 
   // responsive drawer container
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -29,7 +29,7 @@ export default function MainDrawer({ window }) {
   return (
     <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1200 }} aria-label="mailbox folders">
       {!matchDownMD ? (
-        <MiniDrawerStyled drawerMode={drawerMode} variant="permanent" open={true}>
+        <MiniDrawerStyled drawerMode={drawerMode} anchor={drawerDirection} variant="permanent" open={true}>
           {drawerHeader}
           {drawerContent}
         </MiniDrawerStyled>

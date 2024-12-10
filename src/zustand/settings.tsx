@@ -6,6 +6,8 @@ interface ISettings {
     toggleTheme: () => void;
     drawerMode: 'default' | 'mini';
     toggleDrawerMode: () => void;
+    drawerDirection: 'left' | 'right';
+    toggleDrawerDirection: () => void;
 }
 
 export const useSettingsStore = create(
@@ -15,6 +17,8 @@ export const useSettingsStore = create(
         toggleTheme: () => set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
         drawerMode: 'default',
         toggleDrawerMode: () => set((state) => ({ drawerMode: state.drawerMode === 'default' ? 'mini' : 'default' })),
+        drawerDirection: 'left',
+        toggleDrawerDirection: () => set((state) => ({ drawerDirection: state.drawerDirection === 'left' ? 'right' : 'left' })),
     }),
     {
       name: 'settings',

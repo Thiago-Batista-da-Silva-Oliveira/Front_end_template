@@ -9,7 +9,7 @@ import { drawerWidth } from 'config';
 
 // ==============================|| HEADER - APP BAR STYLED ||============================== //
 
-const AppBarStyled = styled(AppBar, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
+const AppBarStyled = styled(AppBar, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open, drawerDirection }) => ({
   zIndex: theme.zIndex.drawer + 1,
   left: 0,
   transition: theme.transitions.create(['width', 'margin'], {
@@ -20,7 +20,8 @@ const AppBarStyled = styled(AppBar, { shouldForwardProp: (prop) => prop !== 'ope
     width: `calc(100%)`
   }),
   ...(open && {
-    marginLeft: drawerWidth,
+    marginRight: drawerDirection === 'right' ? drawerWidth : 0,
+    marginLeft: drawerDirection === 'left' ? drawerWidth : 0,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,

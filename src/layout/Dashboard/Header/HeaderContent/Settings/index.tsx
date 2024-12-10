@@ -14,7 +14,7 @@ import { useSettingsStore } from '../../../../../zustand/settings';
 
 export const Settings = () => {
   const theme = useTheme();
-  const  {theme: storageTheme, toggleTheme, drawerMode, toggleDrawerMode } = useSettingsStore();
+  const  {theme: storageTheme, toggleTheme, drawerMode, toggleDrawerMode, drawerDirection, toggleDrawerDirection } = useSettingsStore();
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
   const [rotationClass, setRotationClass] = useState('');
   const [isSlowingDown, setIsSlowingDown] = useState(false);
@@ -64,6 +64,11 @@ export const Settings = () => {
         </Typography>
         <Button variant={drawerMode === 'default' ? 'contained' : 'outlined'} onClick={() => toggleDrawerMode()}>Menu lateral</Button>
         <Button variant={drawerMode === 'mini' ? 'contained' : 'outlined'} onClick={() => toggleDrawerMode()}>Mini menu lateral</Button>
+        <Typography variant="h4" sx={{ px: 2, mt: 2 }}>
+          Direção
+        </Typography>
+        <Button variant={drawerDirection === 'left' ? 'contained' : 'outlined'} onClick={() => toggleDrawerDirection()}>Menu lado esquerdo</Button>
+        <Button variant={drawerDirection === 'right' ? 'contained' : 'outlined'} onClick={() => toggleDrawerDirection()}>Menu lado direito</Button>
         <Typography variant="h4" sx={{ px: 2, mt: 2 }}>
           Tema
         </Typography>
